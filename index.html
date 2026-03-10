@@ -1,1 +1,591 @@
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوفينغ هومز - فندق الكلاب الفاخر</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f4eb;
+      color: #1e2f4d;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: #3b6e9e;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #2a4f73;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #3b6e9e;
+      color: #3b6e9e;
+    }
+    .btn-outline:hover {
+      background: #3b6e9e;
+      color: white;
+    }
+    .top-bar {
+      background: #1e3a5f;
+      color: white;
+      padding: 10px 0;
+    }
+    .top-bar .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav {
+      padding: 15px 0;
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1e3a5f;
+    }
+    .logo span {
+      color: #3b6e9e;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #1e3a5f;
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: #3b6e9e;
+      color: white;
+    }
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #1e3a5f;
+      cursor: pointer;
+    }
+    .lang-switch {
+      display: flex;
+      gap: 5px;
+    }
+    .lang-switch button {
+      background: transparent;
+      border: 2px solid #3b6e9e;
+      color: #3b6e9e;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .lang-switch button.active {
+      background: #3b6e9e;
+      color: white;
+    }
+    .hero {
+      background: linear-gradient(rgba(30,58,95,0.8), rgba(59,110,158,0.8)), url('https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=1200');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    .page-hero {
+      background: linear-gradient(135deg, #1e3a5f, #3b6e9e);
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+    }
+    .breadcrumb {
+      text-align: center;
+      padding: 15px 0;
+      background: white;
+      border-bottom: 1px solid #e8dccc;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      color: #1e3a5f;
+      margin: 60px 0 30px;
+    }
+    .features-grid, .packages-grid, .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      margin: 40px 0;
+    }
+    .feature-card, .package-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid #e8dccc;
+    }
+    .feature-card:hover, .package-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .feature-card img, .package-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .package-card.featured {
+      border: 2px solid #3b6e9e;
+      position: relative;
+    }
+    .package-card.featured::before {
+      content: '⭐ الأكثر طلباً';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #3b6e9e;
+      color: white;
+      padding: 5px 20px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
+    .package-price {
+      font-size: 1.8rem;
+      color: #3b6e9e;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    .gallery-item {
+      border-radius: 15px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 40px 0;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .info-icon {
+      font-size: 2rem;
+      color: #3b6e9e;
+    }
+    .form-card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e8dccc;
+      border-radius: 8px;
+    }
+    .about-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 50px 0;
+      align-items: center;
+    }
+    .about-section img {
+      width: 100%;
+      border-radius: 15px;
+    }
+    .stats-bar {
+      background: linear-gradient(135deg, #1e3a5f, #3b6e9e);
+      color: white;
+      padding: 50px 0;
+      margin: 50px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+    .stat-item h3 {
+      font-size: 2.5rem;
+    }
+    .faq-list {
+      max-width: 800px;
+      margin: 40px auto;
+    }
+    .faq-item {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      padding: 20px;
+      background: none;
+      border: none;
+      text-align: right;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1e3a5f;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+    .faq-question:hover {
+      background: #f8f4eb;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.3s;
+      padding: 0 20px;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding: 0 20px 20px;
+    }
+    footer {
+      background: #1e3a5f;
+      color: white;
+      padding: 50px 0 20px;
+      margin-top: 60px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    .footer-col a {
+      color: #d6dce5;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
+    @media (max-width: 992px) {
+      .features-grid, .packages-grid, .gallery-grid, .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .about-section, .contact-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+      }
+      .nav-links.show { display: flex; }
+      .features-grid, .packages-grid, .gallery-grid, .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="container">
+      <div>📞 +852 1234 5678 ✉️ <a href="/cdn-cgi/l/email-protection" class="_cf_email_" data-cfemail="a3cacdc5cce3cfccd5cacdc4cbcccec6d08dcbc8">[email&#160;protected]</a></div>
+      <div class="hours-ar">🕒 ٧ص - ٩م</div>
+      <div class="hours-en" style="display:none;">🕒 7am - 9pm</div>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="container">
+        <a href="#" class="logo">🐾 Loving <span>Homes</span></a>
+        <button class="hamburger" id="hamburger">☰</button>
+        <ul class="nav-links" id="navLinks">
+          <li><a class="nav-link active" data-page="home">الرئيسية</a></li>
+          <li><a class="nav-link" data-page="about">من نحن</a></li>
+          <li><a class="nav-link" data-page="services">الخدمات</a></li>
+          <li><a class="nav-link" data-page="packages">الباقات</a></li>
+          <li><a class="nav-link" data-page="gallery">معرض الصور</a></li>
+          <li><a class="nav-link" data-page="faq">الأسئلة</a></li>
+          <li><a class="nav-link" data-page="contact">اتصل بنا</a></li>
+          <li><a class="btn btn-primary nav-link" data-page="booking">احجز</a></li>
+          <li class="lang-switch">
+            <button id="langAr" class="active">AR</button>
+            <button id="langEn">EN</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- الصفحة الرئيسية -->
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="container">
+          <h1 class="ar">بيت بعيد عن البيت لصديقك الوفي</h1>
+          <h1 class="en" style="display:none;">A Home Away From Home</h1>
+          <p class="ar">خدمات فاخرة للإقامة والعناية بكلبك</p>
+          <p class="en" style="display:none;">Premium dog boarding and care services</p>
+          <div class="hero-buttons">
+            <a href="#" class="btn btn-primary nav-link" data-page="booking">احجز الآن</a>
+            <a href="#" class="btn btn-outline nav-link" data-page="packages">الباقات</a>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <h2 class="section-title ar">خدماتنا المميزة</h2>
+        <h2 class="section-title en" style="display:none;">Our Services</h2>
+        <div class="features-grid">
+          <div class="feature-card"><img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=400"><div class="feature-icon">🏠</div><h3 class="ar">غرف فاخرة</h3><h3 class="en" style="display:none;">Luxury Rooms</h3></div>
+          <div class="feature-card"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=400"><div class="feature-icon">✂️</div><h3 class="ar">حلاقة وسبا</h3><h3 class="en" style="display:none;">Grooming & Spa</h3></div>
+          <div class="feature-card"><img src="https://images.unsplash.com/photo-1628009368231-3bb7cfcb0def?w=400"><div class="feature-icon">🏥</div><h3 class="ar">رعاية بيطرية</h3><h3 class="en" style="display:none;">Vet Care</h3></div>
+          <div class="feature-card"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400"><div class="feature-icon">🌳</div><h3 class="ar">حدائق لعب</h3><h3 class="en" style="display:none;">Playgrounds</h3></div>
+          <div class="feature-card"><img src="https://images.unsplash.com/photo-1553882809-a4f57e59501d?w=400"><div class="feature-icon">🚗</div><h3 class="ar">توصيل آمن</h3><h3 class="en" style="display:none;">Safe Transport</h3></div>
+          <div class="feature-card"><img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=400"><div class="feature-icon">📸</div><h3 class="ar">تصوير يومي</h3><h3 class="en" style="display:none;">Daily Photos</h3></div>
+          <div class="feature-card"><img src="https://images.unsplash.com/photo-1568572933382-74d440642117?w=400"><div class="feature-icon">🍖</div><h3 class="ar">طعام صحي</h3><h3 class="en" style="display:none;">Healthy Food</h3></div>
+          <div class="feature-card"><img src="https://images.unsplash.com/photo-1553882809-a4f57e59501d?w=400"><div class="feature-icon">🎾</div><h3 class="ar">تدريب رياضي</h3><h3 class="en" style="display:none;">Sports Training</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- من نحن -->
+    <section id="page-about" class="page">
+      <div class="page-hero"><h1 class="ar">من نحن</h1><h1 class="en" style="display:none;">About Us</h1></div>
+      <div class="container">
+        <div class="about-section">
+          <div><h2 class="ar">قصتنا</h2><h2 class="en" style="display:none;">Our Story</h2><p class="ar">تأسست لوفينغ هومز في 2018 على يد فريق من محبي الحيوانات في هونغ كونغ. بدأنا بمنزل صغير والآن لدينا أكبر فندق كلاب في المنطقة.</p><p class="en" style="display:none;">Founded in 2018 by animal lovers in Hong Kong. Now the largest dog hotel in the area.</p></div>
+          <img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=600">
+        </div>
+        <div class="stats-bar"><div class="stats-grid"><div class="stat-item"><h3>5000+</h3><p class="ar">كلب سعيد</p><p class="en" style="display:none;">Happy Dogs</p></div><div class="stat-item"><h3>7</h3><p class="ar">سنوات</p><p class="en" style="display:none;">Years</p></div><div class="stat-item"><h3>30</h3><p class="ar">موظف</p><p class="en" style="display:none;">Staff</p></div><div class="stat-item"><h3>98%</h3><p class="ar">رضا</p><p class="en" style="display:none;">Satisfaction</p></div></div></div>
+        <div class="about-section"><img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=600"><div><h2 class="ar">فريقنا</h2><h2 class="en" style="display:none;">Our Team</h2><p class="ar">نخبة من أفضل المتخصصين في رعاية الكلاب.</p><p class="en" style="display:none;">Elite dog care specialists.</p></div></div>
+      </div>
+    </section>
+
+    <!-- الخدمات -->
+    <section id="page-services" class="page">
+      <div class="page-hero"><h1 class="ar">الخدمات</h1><h1 class="en" style="display:none;">Services</h1></div>
+      <div class="container"><div class="features-grid">
+        <div class="feature-card"><img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=400"><h3 class="ar">إقامة فاخرة</h3><h3 class="en" style="display:none;">Luxury Stay</h3></div>
+        <div class="feature-card"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=400"><h3 class="ar">حلاقة وتجميل</h3><h3 class="en" style="display:none;">Grooming</h3></div>
+        <div class="feature-card"><img src="https://images.unsplash.com/photo-1628009368231-3bb7cfcb0def?w=400"><h3 class="ar">رعاية بيطرية</h3><h3 class="en" style="display:none;">Vet Care</h3></div>
+        <div class="feature-card"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400"><h3 class="ar">تدريب رياضي</h3><h3 class="en" style="display:none;">Training</h3></div>
+        <div class="feature-card"><img src="https://images.unsplash.com/photo-1553882809-a4f57e59501d?w=400"><h3 class="ar">توصيل آمن</h3><h3 class="en" style="display:none;">Transport</h3></div>
+        <div class="feature-card"><img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=400"><h3 class="ar">تصوير احترافي</h3><h3 class="en" style="display:none;">Photography</h3></div>
+        <div class="feature-card"><img src="https://images.unsplash.com/photo-1568572933382-74d440642117?w=400"><h3 class="ar">طعام صحي</h3><h3 class="en" style="display:none;">Healthy Food</h3></div>
+        <div class="feature-card"><img src="https://images.unsplash.com/photo-1553882809-a4f57e59501d?w=400"><h3 class="ar">متابعة يومية</h3><h3 class="en" style="display:none;">Daily Updates</h3></div>
+      </div></div>
+    </section>
+
+    <!-- الباقات -->
+    <section id="page-packages" class="page">
+      <div class="page-hero"><h1 class="ar">الباقات</h1><h1 class="en" style="display:none;">Packages</h1></div>
+      <div class="container"><div class="packages-grid">
+        <div class="package-card featured"><img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=400"><h3 class="ar">بريميوم</h3><h3 class="en" style="display:none;">Premium</h3><div class="package-price">680 <small class="ar">ريال</small><small class="en" style="display:none;">$</small></div></div>
+        <div class="package-card"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=400"><h3 class="ar">كلاسيك</h3><h3 class="en" style="display:none;">Classic</h3><div class="package-price">480 <small class="ar">ريال</small><small class="en" style="display:none;">$</small></div></div>
+        <div class="package-card"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400"><h3 class="ar">نهاري</h3><h3 class="en" style="display:none;">Day Care</h3><div class="package-price">280 <small class="ar">ريال</small><small class="en" style="display:none;">$</small></div></div>
+        <div class="package-card"><img src="https://images.unsplash.com/photo-1553882809-a4f57e59501d?w=400"><h3 class="ar">اسبوعي</h3><h3 class="en" style="display:none;">Weekly</h3><div class="package-price">2500 <small class="ar">ريال</small><small class="en" style="display:none;">$</small></div></div>
+      </div></div>
+    </section>
+
+    <!-- معرض الصور -->
+    <section id="page-gallery" class="page">
+      <div class="page-hero"><h1 class="ar">معرض الصور</h1><h1 class="en" style="display:none;">Gallery</h1></div>
+      <div class="container"><div class="gallery-grid">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1628009368231-3bb7cfcb0def?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1553882809-a4f57e59501d?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1568572933382-74d440642117?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1553882809-a4f57e59501d?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1628009368231-3bb7cfcb0def?w=400"></div>
+      </div></div>
+    </section>
+
+    <!-- الأسئلة -->
+    <section id="page-faq" class="page">
+      <div class="page-hero"><h1 class="ar">الأسئلة</h1><h1 class="en" style="display:none;">FAQ</h1></div>
+      <div class="container"><div class="faq-list">
+        <div class="faq-item"><button class="faq-question"><span class="ar">التطعيمات المطلوبة؟</span><span class="en" style="display:none;">Vaccinations?</span> ▼</button><div class="faq-answer"><span class="ar">جميع التطعيمات الأساسية محدثة.</span><span class="en" style="display:none;">All basic vaccinations.</span></div></div>
+        <div class="faq-item"><button class="faq-question"><span class="ar">ماذا أحضر؟</span><span class="en" style="display:none;">What to bring?</span> ▼</button><div class="faq-answer"><span class="ar">طعامه ولعبته وأدويتها.</span><span class="en" style="display:none;">Food, toys, medications.</span></div></div>
+        <div class="faq-item"><button class="faq-question"><span class="ar">ساعات الزيارة؟</span><span class="en" style="display:none;">Visiting hours?</span> ▼</button><div class="faq-answer"><span class="ar">١٠ص - ٤م يومياً.</span><span class="en" style="display:none;">10am - 4pm daily.</span></div></div>
+        <div class="faq-item"><button class="faq-question"><span class="ar">سياسة الإلغاء؟</span><span class="en" style="display:none;">Cancellation?</span> ▼</button><div class="faq-answer"><span class="ar">قبل ٤٨ ساعة لاسترداد كامل.</span><span class="en" style="display:none;">48h before for full refund.</span></div></div>
+      </div></div>
+    </section>
+
+    <!-- اتصل بنا -->
+    <section id="page-contact" class="page">
+      <div class="page-hero"><h1 class="ar">اتصل بنا</h1><h1 class="en" style="display:none;">Contact</h1></div>
+      <div class="container"><div class="contact-grid">
+        <div><div class="info-item"><span class="info-icon">📍</span><span class="ar">هونغ كونغ</span><span class="en" style="display:none;">Hong Kong</span></div><div class="info-item"><span class="info-icon">📞</span><span>+852 1234 5678</span></div><div class="info-item"><span class="info-icon">✉️</span><span><a href="/cdn-cgi/l/email-protection" class="_cf_email_" data-cfemail="e1888f878ea18d8e97888f86898e8c8492cf898a">[email&#160;protected]</a></span></div></div>
+        <div class="form-card"><h3 class="ar">أرسل رسالة</h3><h3 class="en" style="display:none;">Send Message</h3><div class="form-group"><input placeholder="الاسم"></div><div class="form-group"><input placeholder="البريد"></div><div class="form-group"><textarea rows="3" placeholder="الرسالة"></textarea></div><button class="btn btn-primary">إرسال</button></div>
+      </div></div>
+    </section>
+
+    <!-- الحجز -->
+    <section id="page-booking" class="page">
+      <div class="page-hero"><h1 class="ar">احجز الآن</h1><h1 class="en" style="display:none;">Book Now</h1></div>
+      <div class="container"><div class="form-card" style="max-width:600px; margin:50px auto;">
+        <h3 class="ar">نموذج الحجز</h3><h3 class="en" style="display:none;">Booking Form</h3>
+        <div class="form-group"><input placeholder="الاسم"></div>
+        <div class="form-group"><input placeholder="اسم الكلب"></div>
+        <div class="form-group"><input placeholder="نوع الكلب"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;"><div class="form-group"><input type="date" placeholder="من"></div><div class="form-group"><input type="date" placeholder="إلى"></div></div>
+        <div class="form-group"><select><option>بريميوم</option><option>كلاسيك</option><option>نهاري</option></select></div>
+        <button class="btn btn-primary">إرسال الطلب</button>
+      </div></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col"><h4>🐾 Loving Homes</h4><p class="ar">أفضل فندق كلاب في هونغ كونغ.</p><p class="en" style="display:none;">Best dog hotel in Hong Kong.</p></div>
+        <div class="footer-col"><h4 class="ar">روابط</h4><h4 class="en" style="display:none;">Links</h4><ul><li><a class="nav-link" data-page="about">من نحن</a></li><li><a class="nav-link" data-page="services">الخدمات</a></li></ul></div>
+        <div class="footer-col"><h4 class="ar">اتصال</h4><h4 class="en" style="display:none;">Contact</h4><p><a href="/cdn-cgi/l/email-protection" class="_cf_email_" data-cfemail="f891969e97b894978e91969f9097959d8bd69093">[email&#160;protected]</a></p></div>
+      </div>
+      <div class="footer-bottom">© 2025 Loving Homes</div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // تبديل الصفحات
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const pageId = this.dataset.page;
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(page-${pageId}).classList.add('active');
+        document.getElementById('navLinks').classList.remove('show');
+      });
+    });
+
+    // هامبرغر
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('show');
+    });
+
+    // الأسئلة
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.parentElement.classList.toggle('active');
+      });
+    });
+
+    // تبديل اللغة
+    function switchLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.getElementById('langAr').classList.toggle('active', lang === 'ar');
+      document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      document.querySelectorAll('.ar, .en, .hours-ar, .hours-en').forEach(el => {
+        if (el.classList.contains(lang)) {
+          el.style.display = '';
+        } else if (el.classList.contains('ar') || el.classList.contains('en') || el.classList.contains('hours-ar') || el.classList.contains('hours-en')) {
+          el.style.display = 'none';
+        }
+      });
+    }
+
+    document.getElementById('langAr').addEventListener('click', () => switchLanguage('ar'));
+    document.getElementById('langEn').addEventListener('click', () => switchLanguage('en'));
+  </script>
+</body>
+</html>
